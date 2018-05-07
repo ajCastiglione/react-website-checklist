@@ -3,6 +3,15 @@ import firebase from './firebase';
 
 class LoginBar extends Component {
 
+    constructor() {
+        super();
+        firebase.auth().onAuthStateChanged(((user) => {
+            if(user) {
+                this.setState({ loggedIn: 'true', userName: user.displayName, userImg: user.photoURL });
+            }
+        }));
+    }
+
     state = {
         loggedIn: 'false',
         userName: '',
@@ -13,10 +22,10 @@ class LoginBar extends Component {
         let auth = firebase.auth();
         let provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider);
-        this.setState({ loggedIn: 'true' });
         auth.onAuthStateChanged((usr) => {
             if(usr) {
                 this.setState({ userName: usr.displayName, userImg: usr.photoURL });
+                this.setState({ loggedIn: 'true' });
             }
         });
     }

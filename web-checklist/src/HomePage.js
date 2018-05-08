@@ -4,24 +4,23 @@ import { Link } from 'react-router-dom';
 
 class HomePage extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {checklistsOpen: []};
-        let ref = firebase.database().ref(`users/${this.props.userID}`);
-            ref.on('value', (snap) => {
-                let vals = snap.val();
-                let keys = Object.keys(vals);
-                for(let k of keys) {
-                    let ckname = vals[k].checklistName;
-                    let cktype = vals[k].checklistFor;
-                    this.state.checklistsOpen.push({cName: ckname, cType: cktype});
-                }
-            });  
-        console.log('con')
+    state = {
+        checklistsOpen: []
     }
     
     componentDidMount() {
-        console.log('mounted')
+        let ref = firebase.database().ref(`users/${this.props.userID}`);
+        let tempArr=[];
+        ref.on('value', (snap) => {
+            let vals = snap.val();
+            let keys = Object.keys(vals);
+            for(let k of keys) {
+                let ckname = vals[k].checklistName;
+                let cktype = vals[k].checklistFor;
+                tempArr.push({cName: ckname, cType: cktype});
+            }
+            this.setState({ checklistsOpen: tempArr })
+        });  
     }
 
     render() {
@@ -42,7 +41,7 @@ class HomePage extends Component {
                             this.state.checklistsOpen.length !== 0 &&
                             this.state.checklistsOpen.map((item) => (
                                 <li key={item.cName + "-site"} className="open-list-item" >
-                                    {item.cName} - {item.cType}
+                                    <Link to={`/create-checklist/${item.cName}`} value={item.cName} onClick={() => this.props.saveTarget(item.cName)}>{item.cName} - {item.cType}</Link>
                                 </li>
                             ))
                         }

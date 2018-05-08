@@ -4,6 +4,7 @@ Variables
 $white: #fff;
 $black: #000;
 $gray: #878787;
+$dark:  #222222;
 $reactBlue: #60D7F8;
 $rale: 'Raleway', sans-serif;
 
@@ -57,11 +58,14 @@ a {
     align-items: center;
     justify-content: flex-start;
     list-style-type: none;
+    margin-bottom: 0;
 
     li {
       a {
         padding: 0 0.5em;
-        color: $white;
+        color: $black;
+        font-weight: bold;
+        font-size: 1.1em;
       }
     }
   }
@@ -156,6 +160,44 @@ a {
       background: transparent;
       color: $reactBlue;
   }
+}
+
+/* checklist creation form */
+.creation-title {
+  padding: 0.5em;
+  margin: 0;
+  font-size: 2.3em;
+}
+
+.radio-fields-checklist {
+  text-align: center;
+
+  input {
+    display: none;
+  }
+  label {
+    width: 48%;
+    padding: 2% 1.5%;
+    margin: 1%;
+    background-color: $dark;
+    color: $reactBlue;
+    cursor: pointer;
+  }
+
+  .active_btn {
+    background-color: $reactBlue;
+    color: $dark;
+  }
+}
+
+.submitBtn {
+  margin-top: 1em;
+  display: inline-block;
+  padding: 0.5em;
+  border: 2px solid $reactBlue;
+  color: $white;
+  background-color: $reactBlue;
+  border-radius: 10px;
 }
 
 .open-checklists {

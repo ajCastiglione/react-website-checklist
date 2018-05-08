@@ -6,8 +6,16 @@ import firebase from './firebase';
 import LoginBar from './Login';
 import HomePage from './HomePage';
 import CreateChecklist from './CreateChecklist'; 
+import SingleCheckList from './Subpages/SingleCheckList';
 
 class App extends Component {
+
+  state = {
+    username: '',
+    userId: '',
+    loggedIn: 'false',
+    savedPg: ''
+  }
 
   constructor() {
     super();
@@ -31,10 +39,8 @@ class App extends Component {
     });
   }
 
-  state = {
-    username: '',
-    userId: '',
-    loggedIn: 'false'
+  saveNewTarget = (checkToView) => {
+    this.setState({savedPg: checkToView});
   }
 
   render() {
@@ -64,7 +70,7 @@ class App extends Component {
           <main className="homepg-section">
             {
               this.state.loggedIn === 'true' &&
-              <HomePage userName={this.state.username} userID={this.state.userId} />
+              <HomePage saveTarget={this.saveNewTarget} userName={this.state.username} userID={this.state.userId} />
             }
             {
               this.state.loggedIn === 'false' &&
@@ -73,9 +79,14 @@ class App extends Component {
           </main>
         )}/>
 
-        <Route path="/create-checklist" render={() => (
+        <Route exact path="/create-checklist" render={() => (
           <CreateChecklist makeList={this.createChecklist} />
         )}/>
+
+        <Route path="/create-checklist/*" render={() => (
+          <SingleCheckList target={this.state.savedPg} />
+        )}/>
+
       </div>
     );
   }

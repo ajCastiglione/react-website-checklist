@@ -23,8 +23,10 @@
 }
 
 /* Sign in */
-.login-form {
+.login-section {
   background-color: #60D7F8;
+}
+.login-form {
   padding: 1em 0;
   text-align: right;
 }

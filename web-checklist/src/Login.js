@@ -36,23 +36,36 @@ class LoginBar extends Component {
         this.setState({ loggedIn: 'false' })
     }
 
+    testIt = (data) => {
+        if(firebase.auth().currentUser) {
+            console.log(data.currentTarget.innerText = firebase.auth().currentUser.displayName);
+        } else {
+            console.log(data.currentTarget.innerText = "No one is logged in currently");
+        } //Dont remember why I needed to grab which element was clicked on currently, hopefully it comes back to me soon.
+    }
+
     render() {
         return (
-            <div className="login-form">
-            {
-                this.state.loggedIn === 'false' &&
-                <div className="sign-in">
-                    <a className="sign-in-btn" onClick={this.loginWindow}>Login with Google</a>
-                </div>
-            }
-            {
-                this.state.loggedIn === 'true' &&
-                <div className="sign-out">
-                    <img src={this.state.userImg}/> 
-                    <a className="sign-out-btn" onClick={this.logOut}>{this.state.userName} - Sign Out</a>
-                </div>
+            <div className="container">
+                <div className="login-form">
+                {
+                    this.state.loggedIn === 'false' &&
+                    <div className="sign-in">
+                        <a className="sign-in-btn" onClick={this.loginWindow}>Login with Google</a>
+                    </div>
+                }
+                {
+                    this.state.loggedIn === 'true' &&
+                    <div className="sign-out">
+                        <img src={this.state.userImg} alt="User Image" /> 
+                        <a className="sign-out-btn" onClick={this.logOut}>{this.state.userName} - Sign Out</a>
+                    </div>
+                }
+                </div> 
 
-            }
+                {/*<div className="fuck">
+                    <a onClick={this.testIt.bind(this)}>Click here to test something</a>
+                </div>*/}
             </div>
         )
     }

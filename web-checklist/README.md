@@ -17,3 +17,12 @@ This project is in the process of being made while first learning react. It ties
 <li>Ability to remove checklists once completed</li>
 <li>Have checklists reference the same template based on the project selected</li>
 </ul>
+
+### Status
+
+<ul>
+<li>Got firebase working and im able to save unique checklists bound by userIDs</li>
+<li>This is a per person instance so it will be based purely on your google account login id</li>
+<li>Going to make a route leading to a template containing the login form</li>
+<li>Have the login form write to the database, need to determine if it will just reference it by name of some unique ID</li>
+</ul>

@@ -1,3 +1,14 @@
+/*******************
+Variables
+*******************/
+$white: #fff;
+$black: #000;
+$gray: #878787;
+$reactBlue: #60D7F8;
+
+/********************
+Styles Section
+********************/
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -7,7 +18,7 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-  color: white;
+  color: $white;
   text-align: center;
 }
 
@@ -21,14 +32,14 @@
 
 /* Sign in */
 .login-form {
-  background-color: #60D7F8;
+  background-color: $reactBlue;
   padding: 1em 0;
   text-align: right;
 }
 .sign-in-btn {
   display: inline-block;
-  background-color: #878787;
-  color: #fff;  
+  background-color: $gray;
+  color: $white;  
   margin: 0;
   text-align: right;
   margin-right: 5%;
@@ -42,19 +53,19 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+  }
 }
 
 .sign-out-btn {
   margin-right: 5%;
-  color: #fff;
+  color: $white;
   margin-left: 15px;
   cursor: pointer;
-}
-
-.sign-out img {
-  width: 50px;
-  height: 50px;
-  border-radius: 100px;
 }
 
 /* checklists section */
@@ -63,9 +74,29 @@
 }
 
 .create-btn {
-  background-color: #60D7F8;
-  color: #fff;
-  border: 2px solid #60D7F8;
+  background-color: $reactBlue;
+  color: $white;
+  border: 2px solid $reactBlue;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+      background: transparent;
+      color: $reactBlue;
+  }
+}
+
+.open-checklists {
+    text-align: center;
+    border: 2px solid $gray;
+
+    h3 {
+        margin: 0;
+        padding: 0.5em 0;
+        margin-bottom: 0.5em;
+        border-bottom: 1px solid $black;
+    }
 }
 
 /* animation */

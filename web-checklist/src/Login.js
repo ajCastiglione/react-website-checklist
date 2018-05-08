@@ -48,7 +48,7 @@ class LoginBar extends Component {
             {
                 this.state.loggedIn === 'true' &&
                 <div className="sign-out">
-                    <img src={this.state.userImg}/> 
+                    <img src={this.state.userImg} alt="User profile pic"/> 
                     <a className="sign-out-btn" onClick={this.logOut}>{this.state.userName} - Sign Out</a>
                 </div>
 

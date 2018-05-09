@@ -12,10 +12,10 @@ This project is in the process of being made while first learning react. It ties
 ## TODO
 <ul>
 <li>Learn more about react and firebase, best way to tie them together</li>
-<li>Have a main page that contains all the created checklists</li>
-<li>Create pages (routes) for checklists</li>
+<li style="color: green">Have a main page that contains all the created checklists</li>
+<li style="color: green">Create pages (routes) for checklists</li>
 <li>Ability to remove checklists once completed</li>
-<li>Have checklists reference the same template based on the project selected</li>
+<li style="color: green">Have checklists reference the same template based on the project selected</li>
 </ul>
 
 ### Status
@@ -23,6 +23,5 @@ This project is in the process of being made while first learning react. It ties
 <ul>
 <li>Got firebase working and im able to save unique checklists bound by userIDs</li>
 <li>This is a per person instance so it will be based purely on your google account login id</li>
-<li>Going to make a route leading to a template containing the login form</li>
-<li>Have the login form write to the database, need to determine if it will just reference it by name of some unique ID</li>
+<li>Each checklists references a single template route that has the ability to update their fields invidually and write to the database for that list</li>
 </ul>

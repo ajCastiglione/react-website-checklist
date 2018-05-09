@@ -45,7 +45,7 @@ class HomePage extends Component {
                             
                             this.state.checklistsOpen.map((item, index) => (
                                 <li key={index} index={index} className="open-list-item" >
-                                    <Link to={`/single-view/${item.cName}`} value={item.cName} onClick={() => this.props.saveTarget(item.cName)}>{item.cName} - {item.cType}</Link>
+                                    <Link to={`/single-view/${item.cName}`} value={item.cName} onClick={() => this.props.saveTarget(item.cName, item.cType)}>{item.cName} - {item.cType}</Link>
                                 </li>
                             ))
                             : 

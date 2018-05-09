@@ -48,6 +48,11 @@ a {
   font-size: large;
 }
 
+.not-loggedin {
+  margin-top: 1em;
+  text-align: center;
+}
+
 /* Sign in */
 
 .nav {
@@ -138,11 +143,6 @@ a {
   margin-top: 2%;
 }
 
-.not-loggedin-homepg {
-  margin-top: 1em;
-  text-align: center;
-}
-
 .create-checklists {
   h2 {
     margin: 0;
@@ -220,6 +220,14 @@ a {
 
 .hide {
   display: none;
+}
+
+/* Single view of each checklist */
+.single-checklist-page-container {
+
+  .single-checklist-name{
+
+  }
 }
 
 /* animation */

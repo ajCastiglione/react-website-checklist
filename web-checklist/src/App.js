@@ -14,7 +14,8 @@ class App extends Component {
     username: '',
     userId: sessionStorage.uID || '',
     loggedIn: 'false',
-    savedPg: sessionStorage.curPage || ''
+    savedPg: sessionStorage.curPage || '',
+    savedType: sessionStorage.curType || ''
   }
 
   constructor() {
@@ -41,9 +42,10 @@ class App extends Component {
     });
   }
 
-  saveNewTarget = (checkToView) => {
-    this.setState({savedPg: checkToView});
+  saveNewTarget = (checkToView, checkType) => {
+    this.setState({savedPg: checkToView, savedType: checkType });
     sessionStorage.curPage = checkToView;
+    sessionStorage.curType = checkType;
   }
 
   render() {
@@ -64,7 +66,7 @@ class App extends Component {
             </div>
 
             <div className="nav-right col-xs-12 col-sm-6 col-lg-4">
-              <LoginBar/>
+              <LoginBar loggedInStatus={this.state.loggedIn}/>
             </div>
           </div>
         </nav>
@@ -72,22 +74,34 @@ class App extends Component {
         <Route exact path="/" render={() => (
           <main className="homepg-section">
             {
-              this.state.loggedIn === 'true' &&
+              this.state.loggedIn === 'true' ?
               <HomePage saveTarget={this.saveNewTarget} userName={this.state.username} userID={this.state.userId} />
-            }
-            {
-              this.state.loggedIn === 'false' &&
-              <p className="not-loggedin-homepg container">Please login via google to view your checklists!</p>
+              :
+              <p className="not-loggedin container">Please login via google to view your checklists!</p>              
             }
           </main>
         )}/>
 
         <Route exact path="/create-checklist" render={() => (
+          <section className="create-a-checklist">
+        {
+          this.state.loggedIn === 'true' ?
           <CreateChecklist makeList={this.createChecklist} />
+          :
+          <p className="not-loggedin container">Please login via google to create a list!</p>
+        }
+          </section>
         )}/>
 
         <Route path="/single-view/*" render={() => (
-          <SingleCheckList target={this.state.savedPg} uid={this.state.userId} />
+          <section className="single-view-app-container">
+            {
+              this.state.loggedIn === 'true' ?
+            <SingleCheckList target={this.state.savedPg} typeOfList={this.state.savedType} uid={this.state.userId} />
+            :
+            <p className="not-loggedin container">Please login via google to access this page!</p>
+            }
+          </section>
         )}/>
 
       </div>

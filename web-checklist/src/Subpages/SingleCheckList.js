@@ -5,8 +5,10 @@ class CheckListPage extends Component {
 
     state = {
         targetChecklist: sessionStorage.curPage || this.props.target,
+        listType: sessionStorage.curType || this.props.typeOfList,
         uid: sessionStorage.uID || this.prop.uid,
         queryArr: JSON.parse(sessionStorage.singleQuery) || [],
+        wait: false
     }
 
     componentDidMount() {
@@ -23,32 +25,57 @@ class CheckListPage extends Component {
             }
             this.setState({ queryArr: tempArr });
             sessionStorage.singleQuery = JSON.stringify(this.state.queryArr);
+            this.setState({wait: true})
         });
+    }
+    
+    componentWillUnmount() {
+        firebase.database().ref(`users/${this.state.uid}`).off();
+    }
+
+    handleChange = (e, index) => {
+        if(e.target.checked) {
+            e.target.value = true;
+            let newArr = this.state.queryArr.slice();
+            newArr[0].fields[index].completed = true;
+            this.setState({ queryArr: newArr });
+        } else {
+            e.target.value = false
+            let newArr = this.state.queryArr.slice();
+            newArr[0].fields[index].completed = false;
+            this.setState({ queryArr: newArr });
+        }
+    };
+
+    submitData = (e) => {
+        e.preventDefault();
+        let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
+        db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType }); 
     }
 
     render() {
         let allFields = this.state.queryArr[0];
         return (
             <section className="container cf single-checklist-page-container">
-                <h2>Viewing checklist for {this.state.targetChecklist}</h2>
+                <h2>Currently viewing - {this.state.targetChecklist}</h2>
                 
-                <h3>Checklist: {allFields.name}</h3>
-                <h4>Type: {allFields.type}</h4>
-                <div className="checklist-single-fields-container">
-                    <div className="nothing-yet">
+                <p className="single-checklist-name" >Checklist: {allFields.name}</p>
+                <p className="single-checklist-type" >Type: {allFields.type}</p>
+                <form className="checklist-single-fields-container">
                        {
-                           this.state.queryArr.length !== 0 ?
+                           this.state.wait !== false ?
                            allFields.fields.map((item, index) => (
                                <div key={`checkbox-container-${index}`} className={`checkbox-container-${index}`}>
-                                    <input key={`checkbox-${index}`} id={`${index}-cb`} type="checkbox" checked={item.completed} onChange={ (e) => {console.log(e.target)} }/>
+                                    <input key={`checkbox-${index}`} id={`${index}-cb`} type="checkbox" defaultChecked={item.completed} onChange={(e) => this.handleChange(e, index)}/>
                                     <label key={`label-${index}`} htmlFor={`${index}-cb`}> {item.id}</label>
                                </div>
-                           ))
+                           ), this)
                            :
                            <p>Please allow a few seconds to load!</p>
                        }
-                    </div>
-                </div>
+
+                    <button onClick={this.submitData}>Submit</button>                       
+                </form>
                     
             </section>
         )

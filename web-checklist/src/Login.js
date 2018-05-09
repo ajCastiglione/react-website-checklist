@@ -3,17 +3,19 @@ import firebase from './firebase';
 
 class LoginBar extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         firebase.auth().onAuthStateChanged(((user) => {
             if(user) {
                 this.setState({ loggedIn: 'true', userName: user.displayName, userImg: user.photoURL });
+            } else {
+                this.setState({ loggedIn: 'false' })
             }
         }));
     }
 
     state = {
-        loggedIn: 'false',
+        loggedIn: this.props.loggedInStatus,
         userName: '',
         userImg: ''
     }

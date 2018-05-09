@@ -49,7 +49,7 @@ class HomePage extends Component {
                                 </li>
                             ))
                             : 
-                            <li>No lists to show!</li>
+                            <li>Please wait while the checklists load!</li>
                         }
                     </ul>
                 </aside>

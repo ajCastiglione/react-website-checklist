@@ -6,7 +6,7 @@ class CheckListPage extends Component {
     state = {
         targetChecklist: sessionStorage.curPage || this.props.target,
         uid: sessionStorage.uID || this.prop.uid,
-        queryArr: JSON.parse(sessionStorage.singleQuery) || []
+        queryArr: JSON.parse(sessionStorage.singleQuery) || [],
     }
 
     componentDidMount() {
@@ -27,13 +27,29 @@ class CheckListPage extends Component {
     }
 
     render() {
+        let allFields = this.state.queryArr[0];
         return (
             <section className="container cf single-checklist-page-container">
                 <h2>Viewing checklist for {this.state.targetChecklist}</h2>
-                <p>returned array</p>
-                    {
-                        console.log(this.state.queryArr[0])
-                    }
+                
+                <h3>Checklist: {allFields.name}</h3>
+                <h4>Type: {allFields.type}</h4>
+                <div className="checklist-single-fields-container">
+                    <div className="nothing-yet">
+                       {
+                           this.state.queryArr.length !== 0 ?
+                           allFields.fields.map((item, index) => (
+                               <div key={`checkbox-container-${index}`} className={`checkbox-container-${index}`}>
+                                    <input key={`checkbox-${index}`} id={`${index}-cb`} type="checkbox" checked={item.completed} onChange={ (e) => {console.log(e.target)} }/>
+                                    <label key={`label-${index}`} htmlFor={`${index}-cb`}> {item.id}</label>
+                               </div>
+                           ))
+                           :
+                           <p>Please allow a few seconds to load!</p>
+                       }
+                    </div>
+                </div>
+                    
             </section>
         )
     }

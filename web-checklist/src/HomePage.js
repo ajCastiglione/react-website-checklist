@@ -14,6 +14,7 @@ class HomePage extends Component {
         let tempArr=[];
         ref.on('value', (snap) => {
             let vals = snap.val();
+            if(vals === null) return;
             let keys = Object.keys(vals);
             for(let k of keys) {
                 let ckname = vals[k].checklistName;
@@ -49,7 +50,7 @@ class HomePage extends Component {
                                 </li>
                             ))
                             : 
-                            <li>Please wait while the checklists load!</li>
+                            <li>No checklists to view, <Link to="/create-checklist">create a new one!</Link></li>
                         }
                     </ul>
                 </aside>

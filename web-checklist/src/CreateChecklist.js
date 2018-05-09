@@ -12,7 +12,7 @@ class CreateChecklist extends Component {
     }
 
     componentDidMount() {
-        this.setState({ checkListFields: [{'id': 'Is the design completed?', 'completed': false},{'id': 'Is the design implemented?', 'completed': false},{'id': 'If this is a woocommerce site, is woocomm fully implemented and is the gateway configured?', 'completed': false},{'id': 'Is the website cross-browser compatible? (including phones)', 'completed': false},{'id': 'Has this site been approved by Sean?', 'completed': false}] });
+        this.setState({ checkListFields: [{'id': 'Is the design completed?', 'completed': false},{'id': 'If this is a woocommerce site, is woocomm fully implemented and is the gateway configured?', 'completed': false},{'id': 'Is the website cross-browser compatible? (including phones)', 'completed': false},{'id': 'Has this site been approved by Sean?', 'completed': false}] });
     }
 
     handleNameChange = (e) => {
@@ -44,22 +44,24 @@ class CreateChecklist extends Component {
     render() {
         return (
             <section className="creation-section">
-                <h1 className="creation-title" >New Checklist For - {this.state.checkListName !== "" ? this.state.checkListName : "New Site" }</h1>
+                <div className="container">
+                    <h1 className="creation-title" >New Checklist For - {this.state.checkListName !== "" ? this.state.checkListName : "New Site" }</h1>
 
-                <form className="input-fields container">
-                    <h4>Name Of Site:</h4> 
-                    <input type="text" name="ckName" className="form-control" onChange={this.handleNameChange} />
-                    <div className="radio-fields-checklist">
-                        <label htmlFor="sub-website" className={this.state.subActive ? 'active_btn' : null}>Subscription</label>
-                        <input id="sub-website" type="radio" name="ckType" value="Subscription" className="form-control" onChange={this.handleSubChange} />
-                        <label htmlFor="reg-website" className={this.state.regActive ? 'active_btn' : null}>Normal Website</label>
-                        <input id="reg-website" type="radio" name="ckType" value="Regular" className="form-control" onChange={this.handleRegChange} />
-                    </div>
-                    <div className="hide">
-                        
-                    </div>
-                    <Link onClick={this.submitChecklist} to="/" className="submitBtn" >Submit Checklist</Link>
-                </form>
+                    <form className="input-fields container">
+                        <h4>Name Of Site:</h4> 
+                        <input type="text" name="ckName" className="form-control" onChange={this.handleNameChange} />
+                        <div className="radio-fields-checklist">
+                            <label htmlFor="sub-website" className={this.state.subActive ? 'active_btn' : null}>Subscription</label>
+                            <input id="sub-website" type="radio" name="ckType" value="Subscription" className="form-control" onChange={this.handleSubChange} />
+                            <label htmlFor="reg-website" className={this.state.regActive ? 'active_btn' : null}>Normal Website</label>
+                            <input id="reg-website" type="radio" name="ckType" value="Regular" className="form-control" onChange={this.handleRegChange} />
+                        </div>
+                        <div className="hide">
+                            
+                        </div>
+                        <Link onClick={this.submitChecklist} to="/" className="submitBtn" >Submit Checklist</Link>
+                    </form>
+                </div>
             </section>
         );
     }

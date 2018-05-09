@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import firebase from '../firebase';
+import { Link } from 'react-router-dom';
 
 class CheckListPage extends Component {
 
@@ -7,7 +8,7 @@ class CheckListPage extends Component {
         targetChecklist: sessionStorage.curPage || this.props.target,
         listType: sessionStorage.curType || this.props.typeOfList,
         uid: sessionStorage.uID || this.prop.uid,
-        queryArr: JSON.parse(sessionStorage.singleQuery) || [],
+        queryArr: [] || JSON.parse(sessionStorage.singleQuery),
         wait: false
     }
 
@@ -48,33 +49,37 @@ class CheckListPage extends Component {
     };
 
     submitData = (e) => {
-        e.preventDefault();
         let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
         db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType }); 
     }
 
     render() {
-        let allFields = this.state.queryArr[0];
         return (
-            <section className="container cf single-checklist-page-container">
-                <h2>Currently viewing - {this.state.targetChecklist}</h2>
-                
-                <p className="single-checklist-name" >Checklist: {allFields.name}</p>
-                <p className="single-checklist-type" >Type: {allFields.type}</p>
+            <section className="single-checklist-page-container cf container">
+            {
+            this.state.wait === true ?
+            <div className="inner-single-page">
+               <h2>Currently viewing - {this.state.targetChecklist}</h2>
+               <p className="single-checklist-name" >Checklist: {this.state.queryArr[0].name}</p>
+               <p className="single-checklist-type" >Type: {this.state.queryArr[0].type}</p>
+            </div>
+                :
+            <p>Please wait while the data is being fetched</p>
+            }
                 <form className="checklist-single-fields-container">
                        {
-                           this.state.wait !== false ?
-                           allFields.fields.map((item, index) => (
-                               <div key={`checkbox-container-${index}`} className={`checkbox-container-${index}`}>
+                           this.state.wait === true ?
+                           this.state.queryArr[0].fields.map((item, index) => (
+                               <div key={`checkbox-container-${index}`} className={`checkbox-container`}>
                                     <input key={`checkbox-${index}`} id={`${index}-cb`} type="checkbox" defaultChecked={item.completed} onChange={(e) => this.handleChange(e, index)}/>
-                                    <label key={`label-${index}`} htmlFor={`${index}-cb`}> {item.id}</label>
+                                    <label key={`label-${index}`} htmlFor={`${index}-cb`}>{item.id}</label>
                                </div>
                            ), this)
                            :
                            <p>Please allow a few seconds to load!</p>
                        }
 
-                    <button onClick={this.submitData}>Submit</button>                       
+                    <Link to="/" onClick={this.submitData}>Submit</Link>                       
                 </form>
                     
             </section>

@@ -225,8 +225,37 @@ a {
 /* Single view of each checklist */
 .single-checklist-page-container {
 
-  .single-checklist-name{
+  .inner-single-page {
+    text-align: center;
+    h2 {
+      text-transform: capitalize;
+      border-bottom: 4px solid $reactBlue;
+      padding-bottom: 0.3em;
+    }
+  }
 
+  .single-checklist-name, .single-checklist-type {
+    display: inline-block;
+    width: 22%;
+    margin: 1%;
+    padding: 0.5em 1em;
+    text-align: center;
+    background-color: $dark;
+    color: $reactBlue;
+    border-radius: 15px;
+  }
+
+  .checkbox-container {
+    border-bottom: 2px solid $dark;
+    input {
+      display: inline-block;
+      margin: 0.5em;
+    }
+    label {
+      margin: 0.5em;
+      display: inline-block;
+      padding: 0.5em 1em;
+    }
   }
 }
 

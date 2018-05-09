@@ -12,10 +12,10 @@ This project is in the process of being made while first learning react. It ties
 ## TODO
 <ul>
 <li>Learn more about react and firebase, best way to tie them together</li>
-<li style="color: green">Have a main page that contains all the created checklists</li>
-<li style="color: green">Create pages (routes) for checklists</li>
+<li>~~Have a main page that contains all the created checklists~~</li>
+<li>~~Create pages (routes) for checklists~~</li>
 <li>Ability to remove checklists once completed</li>
-<li style="color: green">Have checklists reference the same template based on the project selected</li>
+<li>~~Have checklists reference the same template based on the project selected~~</li>
 <li>Fix the styling and layout of the checklist single page</li>
 <li>Add ability to remove the checklist once it is completed</li>
 <li>Maybe find a way to add more fields / remove certain fields per instance</li>

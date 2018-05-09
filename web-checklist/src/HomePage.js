@@ -14,7 +14,6 @@ class HomePage extends Component {
         let tempArr=[];
         ref.on('value', (snap) => {
             let vals = snap.val();
-            console.log(vals)
             let keys = Object.keys(vals);
             for(let k of keys) {
                 let ckname = vals[k].checklistName;
@@ -25,15 +24,17 @@ class HomePage extends Component {
         });  
     }
 
+    componentWillUnmount() {
+        firebase.database().ref(`users/${this.props.userID}`).off();
+    }
+
     render() {
         return (
             <section className="homepg-content-container container cf">
                 
                 <article className="create-checklists col-xs-12 col-sm-6 col-lg-8">
                     <h2>Generate new checklist</h2>
-                    <div className="text-center">
-                        <Link className="create-btn" to="/create-checklist">Create Checklist</Link> 
-                    </div>
+                    <Link className="create-btn" to="/create-checklist">Create Checklist</Link> 
                 </article>
 
                 <aside className="open-checklists col-xs-12 col-sm-6 col-lg-4">

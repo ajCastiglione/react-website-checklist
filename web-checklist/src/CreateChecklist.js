@@ -6,12 +6,19 @@ class CreateChecklist extends Component {
         checkListName: '',
         checkListType: '',
         checkListTitle: '',
+        checkListFields: [],
         subActive: false,
         regActive: false
     }
 
+    componentDidMount() {
+        this.setState({ checkListFields: [{'Design transferred': false},{'Responsive': false},{'Woocommerce configured if needed':false},{'Approved by sean': false}] });
+    }
+
     handleNameChange = (e) => {
-        this.setState({ checkListName: e.target.value, checkListTitle: e.target.value });
+        let title = e.target.value;
+        title = title.charAt(0).toUpperCase() + title.slice(1);
+        this.setState({ checkListName: title, checkListTitle: title });
     };
     handleSubChange = (e) => {
         this.setState({ checkListType: e.target.value });
@@ -30,10 +37,8 @@ class CreateChecklist extends Component {
         if(!this.state.checkListName || !this.state.checkListType || !this.state.checkListTitle) {
         return alert("You must enter a name and select a type before submitting");
         }
-        let n = this.state.checkListName,
-        t = this.state.checkListType,
-        title = this.state.checkListTitle;
-        this.props.makeList(n, t, title);
+        let name = this.state.checkListName, type = this.state.checkListType, title = this.state.checkListTitle, fields = this.state.checkListFields;
+        this.props.makeList(name, type, title, fields);
     };
 
     render() {
@@ -49,6 +54,9 @@ class CreateChecklist extends Component {
                         <input id="sub-website" type="radio" name="ckType" value="Subscription" className="form-control" onChange={this.handleSubChange} />
                         <label htmlFor="reg-website" className={this.state.regActive ? 'active_btn' : null}>Normal Website</label>
                         <input id="reg-website" type="radio" name="ckType" value="Regular" className="form-control" onChange={this.handleRegChange} />
+                    </div>
+                    <div className="hide">
+                        
                     </div>
                     <Link onClick={this.submitChecklist} to="/" className="submitBtn" >Submit Checklist</Link>
                 </form>

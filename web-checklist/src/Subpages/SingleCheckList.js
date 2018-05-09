@@ -4,37 +4,37 @@ import firebase from '../firebase';
 class CheckListPage extends Component {
 
     state = {
-        targetChecklist: this.props.target,
-        currentList: []
+        targetChecklist: sessionStorage.curPage || this.props.target,
+        uid: sessionStorage.uID || this.prop.uid,
+        queryArr: JSON.parse(sessionStorage.singleQuery) || []
     }
 
     componentDidMount() {
-        let ref = firebase.database().ref(`users/${this.props.userID}`);
-        let tempArr=[];
-        ref.on('value', (snap) => {
+        let tempArr = [];
+        let db = firebase.database().ref(`users/${this.state.uid}`);
+        db.orderByKey().equalTo(this.state.targetChecklist).on('value', (snap) => {
             let vals = snap.val();
             let keys = Object.keys(vals);
             for(let k of keys) {
-                let ckname = vals[k].checklistName;
-                let cktype = vals[k].checklistFor;
-                tempArr.push({cName: ckname, cType: cktype});
+                let clName = vals[k].checklistName;
+                let clType = vals[k].checklistFor;
+                let clFields = vals[k].checklistFields;
+                tempArr.push({ name: clName, type: clType, fields: clFields });
             }
-            this.setState({ currentList: tempArr })
-        });  
+            this.setState({ queryArr: tempArr });
+            sessionStorage.singleQuery = JSON.stringify(this.state.queryArr);
+        });
     }
 
     render() {
         return (
-            <div>
-                <p>{this.state.targetChecklist}</p>
-
+            <section className="container cf single-checklist-page-container">
+                <h2>Viewing checklist for {this.state.targetChecklist}</h2>
                 <p>returned array</p>
-                <ul>
-                    {this.state.currentList.map((item, index) => (
-                        <li key={index}>{item.cName}</li>
-                    ))}
-                </ul>
-            </div>
+                    {
+                        console.log(this.state.queryArr[0])
+                    }
+            </section>
         )
     }
 }

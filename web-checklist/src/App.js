@@ -83,8 +83,8 @@ class App extends Component {
           <CreateChecklist makeList={this.createChecklist} />
         )}/>
 
-        <Route path="/create-checklist/*" render={() => (
-          <SingleCheckList target={this.state.savedPg} />
+        <Route path="/single-view/*" render={() => (
+          <SingleCheckList target={this.state.savedPg} userID={this.state.userId} />
         )}/>
 
       </div>

@@ -163,6 +163,9 @@ a {
 }
 
 /* checklist creation form */
+.creation-section {
+  margin: 1em 0;
+}
 .creation-title {
   padding: 0.5em;
   margin: 0;
@@ -193,11 +196,18 @@ a {
 .submitBtn {
   margin-top: 1em;
   display: inline-block;
-  padding: 0.5em;
+  padding: 0.75em;
   border: 2px solid $reactBlue;
   color: $white;
+  font-weight: bold;
   background-color: $reactBlue;
   border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background: transparent;
+    color: $reactBlue;
+  }
 }
 
 .open-checklists {

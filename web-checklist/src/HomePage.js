@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 class HomePage extends Component {
 
     state = {
-        checklistsOpen: []
+        checklistsOpen: [],
+        test: []
     }
     
     componentDidMount() {
@@ -13,6 +14,7 @@ class HomePage extends Component {
         let tempArr=[];
         ref.on('value', (snap) => {
             let vals = snap.val();
+            console.log(vals)
             let keys = Object.keys(vals);
             for(let k of keys) {
                 let ckname = vals[k].checklistName;
@@ -38,15 +40,14 @@ class HomePage extends Component {
                     <h3>All active checklists for {this.props.userName}</h3>
                     <ul>
                         {
-                            this.state.checklistsOpen.length !== 0 &&
-                            this.state.checklistsOpen.map((item) => (
-                                <li key={item.cName + "-site"} className="open-list-item" >
-                                    <Link to={`/create-checklist/${item.cName}`} value={item.cName} onClick={() => this.props.saveTarget(item.cName)}>{item.cName} - {item.cType}</Link>
+                            this.state.checklistsOpen.length !== 0 ?
+                            
+                            this.state.checklistsOpen.map((item, index) => (
+                                <li key={index} index={index} className="open-list-item" >
+                                    <Link to={`/single-view/${item.cName}`} value={item.cName} onClick={() => this.props.saveTarget(item.cName)}>{item.cName} - {item.cType}</Link>
                                 </li>
                             ))
-                        }
-                        {
-                            this.state.checklistsOpen.length === 0 &&
+                            : 
                             <li>No lists to show!</li>
                         }
                     </ul>

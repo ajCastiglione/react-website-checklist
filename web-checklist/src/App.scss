@@ -1,18 +1,22 @@
 /*******************
 Variables
 *******************/
+
 $white: #fff;
 $black: #000;
 $gray: #878787;
-$dark:  #222222;
+$dark : #222222;
 $reactBlue: #60D7F8;
-$rale: 'Raleway', sans-serif;
-
+$rale: 'Raleway',
+sans-serif;
 /********************
 Styles Section
 ********************/
+
 /* general section */
-body, html {
+
+body,
+html {
   font-family: $rale;
 }
 
@@ -45,21 +49,22 @@ a {
 }
 
 /* Sign in */
+
 .nav {
   background-color: $reactBlue;
   padding: 1em 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-
+  .inner-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
   ul {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     list-style-type: none;
     margin-bottom: 0;
-
     li {
       a {
         padding: 0 0.5em;
@@ -78,7 +83,7 @@ a {
 .sign-in-btn {
   display: inline-block;
   background-color: $gray;
-  color: $white;  
+  color: $white;
   margin: 0;
   text-align: right;
   margin-right: 5%;
@@ -87,12 +92,11 @@ a {
   cursor: pointer;
   border: 2px solid $gray;
   transition: all 0.3s ease-in-out;
-
   &:hover {
     background-color: transparent;
     text-decoration: none;
     color: $white;
-    text-shadow: 1px 1px 3px $black;  
+    text-shadow: 1px 1px 3px $black;
   }
 }
 
@@ -101,7 +105,6 @@ a {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-
   img {
     width: 50px;
     height: 50px;
@@ -121,16 +124,16 @@ a {
   border-radius: 5px;
   border: 2px solid $gray;
   transition: all 0.3s ease-in-out;
-
   &:hover {
     background-color: transparent;
     text-decoration: none;
     color: $white;
-    text-shadow: 1px 1px 3px $black;  
+    text-shadow: 1px 1px 3px $black;
   }
 }
 
 /* checklists section */
+
 .homepg-content-container {
   margin-top: 2%;
 }
@@ -155,14 +158,14 @@ a {
   padding: 0.5em 1em;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
-
   &:hover {
-      background: transparent;
-      color: $reactBlue;
+    background: transparent;
+    color: $reactBlue;
   }
 }
 
 /* checklist creation form */
+
 .creation-title {
   padding: 0.5em;
   margin: 0;
@@ -171,7 +174,6 @@ a {
 
 .radio-fields-checklist {
   text-align: center;
-
   input {
     display: none;
   }
@@ -183,7 +185,6 @@ a {
     color: $reactBlue;
     cursor: pointer;
   }
-
   .active_btn {
     background-color: $reactBlue;
     color: $dark;
@@ -201,28 +202,27 @@ a {
 }
 
 .open-checklists {
-    text-align: center;
-    border: 2px solid $gray;
-
-    h3 {
-        margin: 0;
-        padding: 0.5em 0;
-        margin-bottom: 0.5em;
-        border-bottom: 1px solid $black;
-    }
+  text-align: center;
+  border: 2px solid $gray;
+  h3 {
+    margin: 0;
+    padding: 0.5em 0;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid $black;
+  }
 }
 
 /* animation */
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* responsive section */
 
-@media (min-width: 768px) {
-  .container {
-    width: 767px !important;
-  }
-}
+@media (min-width: 768px) {}

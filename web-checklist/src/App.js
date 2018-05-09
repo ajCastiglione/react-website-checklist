@@ -12,16 +12,17 @@ class App extends Component {
 
   state = {
     username: '',
-    userId: '',
+    userId: sessionStorage.uID || '',
     loggedIn: 'false',
-    savedPg: ''
+    savedPg: sessionStorage.curPage || ''
   }
 
   constructor() {
     super();
     firebase.auth().onAuthStateChanged(((usr) => {
       if(usr) {
-          this.setState({ username: usr.displayName, userId: usr.uid, loggedIn: 'true' })
+          this.setState({ username: usr.displayName, userId: usr.uid, loggedIn: 'true' });
+          sessionStorage.uID = this.state.userId;
         } else {
           this.setState({loggedIn: 'false'})
         }
@@ -41,6 +42,7 @@ class App extends Component {
 
   saveNewTarget = (checkToView) => {
     this.setState({savedPg: checkToView});
+    sessionStorage.curPage = checkToView;
   }
 
   render() {
@@ -52,18 +54,18 @@ class App extends Component {
         </header>
 
         <nav className="nav">
+          <div className="inner-nav container">
+            <div className="nav-left col-xs-12 col-sm-6 col-lg-8">
+              <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/create-checklist">New Checklist</Link></li>
+              </ul>
+            </div>
 
-          <div className="nav-left col-xs-12 col-sm-6 col-lg-8">
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/create-checklist">New Checklist</Link></li>
-            </ul>
+            <div className="nav-right col-xs-12 col-sm-6 col-lg-4">
+              <LoginBar/>
+            </div>
           </div>
-
-          <div className="nav-right col-xs-12 col-sm-6 col-lg-4">
-            <LoginBar/>
-          </div>
-
         </nav>
 
         <Route exact path="/" render={() => (
@@ -84,7 +86,7 @@ class App extends Component {
         )}/>
 
         <Route path="/create-checklist/*" render={() => (
-          <SingleCheckList target={this.state.savedPg} />
+          <SingleCheckList target={this.state.savedPg} uid={this.state.userId} />
         )}/>
 
       </div>

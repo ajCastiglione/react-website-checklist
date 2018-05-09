@@ -29,9 +29,7 @@ class HomePage extends Component {
                 
                 <article className="create-checklists col-xs-12 col-sm-6 col-lg-8">
                     <h2>Generate new checklist</h2>
-                    <div className="text-center">
-                        <Link className="create-btn" to="/create-checklist">Create Checklist</Link> 
-                    </div>
+                    <Link className="create-btn" to="/create-checklist">Create Checklist</Link> 
                 </article>
 
                 <aside className="open-checklists col-xs-12 col-sm-6 col-lg-4">

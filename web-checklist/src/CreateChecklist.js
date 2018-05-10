@@ -12,7 +12,7 @@ class CreateChecklist extends Component {
     }
 
     componentDidMount() {
-        this.setState({ checkListFields: [{'id': 'Is the design completed?', 'completed': false},{'id': 'If this is a woocommerce site, is woocomm fully implemented and is the gateway configured?', 'completed': false},{'id': 'Is the website cross-browser compatible? (including phones)', 'completed': false},{'id': 'Has this site been approved by Sean?', 'completed': false}] });
+        this.setState({ checkListFields: [{'id': 'Is the design completed?', 'completed': false},{'id': 'If this is a woocommerce site, is woocomm fully implemented and is the gateway configured?', 'completed': false},{'id': 'Is the website cross-browser compatible? (including safari)', 'completed': false},{'id': 'Has this site been approved by Sean?', 'completed': false}] });
     }
 
     handleNameChange = (e) => {

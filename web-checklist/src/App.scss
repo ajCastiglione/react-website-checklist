@@ -53,6 +53,13 @@ a {
   text-align: center;
 }
 
+.flex-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+}
+
 /* Sign in */
 
 .nav {
@@ -252,10 +259,43 @@ a {
       margin: 0.5em;
     }
     label {
-      margin: 0.5em;
       display: inline-block;
+      margin: 0;
       padding: 0.5em 1em;
+      border-left: 2px solid $dark;
     }
+  }
+}
+
+.submit-updates-btn {
+  display: inline-block;
+  background-color: $reactBlue;
+  color: $white;
+  border: 2px solid $reactBlue;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin: 1em;
+  margin-left: 0;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: transparent;
+    color: $reactBlue;
+  }
+}
+.add-field-btn, .add-field-btn:focus {
+  display: inline-block;
+  background: $reactBlue;
+  color: $white;
+  text-decoration: none;
+  border: 2px solid $reactBlue;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin: 1em;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background: transparent;
+    color: $reactBlue;
   }
 }
 

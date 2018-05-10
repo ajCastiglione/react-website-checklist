@@ -9,7 +9,9 @@ class CheckListPage extends Component {
         listType: sessionStorage.curType || this.props.typeOfList,
         uid: sessionStorage.uID || this.prop.uid,
         queryArr: [] || JSON.parse(sessionStorage.singleQuery),
-        wait: false
+        wait: false,
+        visible: false,
+        newField: ""
     }
 
     componentDidMount() {
@@ -34,6 +36,11 @@ class CheckListPage extends Component {
         firebase.database().ref(`users/${this.state.uid}`).off();
     }
 
+    showInputField = (e) => {
+        e.preventDefault();
+        this.setState({ visible: !this.state.visible })
+    };
+
     handleChange = (e, index) => {
         if(e.target.checked) {
             e.target.value = true;
@@ -48,6 +55,20 @@ class CheckListPage extends Component {
         }
     };
 
+    handleNewField = (e) => {
+        this.setState({ newField: e.target.value })
+    };
+
+    saveNewField = (e) => {
+        e.preventDefault();
+        let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
+        let nf = this.state.newField;
+        let tempArr = this.state.queryArr.slice();
+        tempArr[0].fields.push({id: nf, completed: false});
+        this.setState({ queryArr: tempArr })
+        db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType });
+    }
+
     submitData = (e) => {
         let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
         db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType }); 
@@ -56,12 +77,15 @@ class CheckListPage extends Component {
     render() {
         return (
             <section className="single-checklist-page-container cf container">
+
             {
             this.state.wait === true ?
             <div className="inner-single-page">
                <h2>Currently viewing - {this.state.targetChecklist}</h2>
-               <p className="single-checklist-name" >Checklist: {this.state.queryArr[0].name}</p>
-               <p className="single-checklist-type" >Type: {this.state.queryArr[0].type}</p>
+               <div className="flex-group">
+               <p className="single-checklist-name" >Checklist for: {this.state.queryArr[0].name}</p>
+               <p className="single-checklist-type" >Type of site: {this.state.queryArr[0].type}</p>
+               </div>
             </div>
                 :
             <p>Please wait while the data is being fetched</p>
@@ -79,9 +103,20 @@ class CheckListPage extends Component {
                            <p>Please allow a few seconds to load!</p>
                        }
 
-                    <Link to="/" onClick={this.submitData}>Submit</Link>                       
+                    <Link to="/" className="submit-updates-btn"  onClick={this.submitData}>Submit</Link>
+                    <a href="#" className="add-field-btn" onClick={this.showInputField}>Add Field</a>
+                    {
+                        this.state.visible === true ?
+                        <div className="save-new-field-container">
+                            <input type="text" className="form-control" onChange={this.handleNewField} />
+                            {this.state.newField}
+                            <button onClick={this.saveNewField}>Save new field</button>
+                        </div>
+                        
+                        :
+                        null
+                    }        
                 </form>
-                    
             </section>
         )
     }

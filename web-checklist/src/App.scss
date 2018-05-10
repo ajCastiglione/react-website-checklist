@@ -254,6 +254,8 @@ a {
 
   .checkbox-container {
     border-bottom: 2px solid $dark;
+    position: relative;
+    padding-top: 0.3em;
     input {
       display: inline-block;
       margin: 0.5em;
@@ -263,6 +265,18 @@ a {
       margin: 0;
       padding: 0.5em 1em;
       border-left: 2px solid $dark;
+    }
+    button {
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+      background-color: red;
+      color: $white;
+      width: 25px;
+      height: 25px;
+      border-radius: 100px;
     }
   }
 }
@@ -287,6 +301,7 @@ a {
   background: $reactBlue;
   color: $white;
   text-decoration: none;
+  text-transform: capitalize;
   border: 2px solid $reactBlue;
   border-radius: 5px;
   padding: 0.5em;
@@ -298,6 +313,13 @@ a {
     color: $reactBlue;
   }
 }
+
+.save-new-field-container {
+  .add-field-btn {
+    margin-left: 0;
+  }
+}
+
 
 /* animation */
 

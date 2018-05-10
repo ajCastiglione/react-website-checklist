@@ -55,24 +55,40 @@ class CheckListPage extends Component {
         }
     };
 
+    removeItem = (e, index) => {
+        e.preventDefault();
+        let tempArr = this.state.queryArr.slice();
+        let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
+        tempArr[0].fields.splice(index, 1);
+        this.setState({ queryArr: tempArr });
+        db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType });
+    };
+
     handleNewField = (e) => {
+        e.preventDefault();
         this.setState({ newField: e.target.value })
+    };
+    handleKeyPress = (e) => {
+        if(e.key === 'Enter') e.preventDefault();
     };
 
     saveNewField = (e) => {
         e.preventDefault();
+        if(this.state.newField === "") return;
         let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
         let nf = this.state.newField;
         let tempArr = this.state.queryArr.slice();
         tempArr[0].fields.push({id: nf, completed: false});
-        this.setState({ queryArr: tempArr })
+        this.setState({ queryArr: tempArr });
         db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType });
-    }
+        document.querySelector('#newFieldText').value = "";
+        this.setState({ newField: '' })
+    };
 
     submitData = (e) => {
         let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
         db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType }); 
-    }
+    };
 
     render() {
         return (
@@ -96,23 +112,23 @@ class CheckListPage extends Component {
                            this.state.queryArr[0].fields.map((item, index) => (
                                <div key={`checkbox-container-${index}`} className={`checkbox-container`}>
                                     <input key={`checkbox-${index}`} id={`${index}-cb`} type="checkbox" defaultChecked={item.completed} onChange={(e) => this.handleChange(e, index)}/>
-                                    <label key={`label-${index}`} htmlFor={`${index}-cb`}>{item.id}</label>
+                                    <label key={`label-${index}`} htmlFor={`${index}-cb`}>{item.id}  <button onClick={(e) => this.removeItem(e, index)}>X</button></label>
+                                    
                                </div>
                            ), this)
                            :
-                           <p>Please allow a few seconds to load!</p>
+                           <h3>Querying database currently....</h3>
                        }
 
                     <Link to="/" className="submit-updates-btn"  onClick={this.submitData}>Submit</Link>
-                    <a href="#" className="add-field-btn" onClick={this.showInputField}>Add Field</a>
+                    <button className="add-field-btn" onClick={this.showInputField}>Add Field</button>
                     {
                         this.state.visible === true ?
                         <div className="save-new-field-container">
-                            <input type="text" className="form-control" onChange={this.handleNewField} />
-                            {this.state.newField}
-                            <button onClick={this.saveNewField}>Save new field</button>
+                            <label>New Field</label>
+                            <input id="newFieldText" type="text" className="form-control" onChange={this.handleNewField} onKeyPress={this.handleKeyPress} />
+                            <button className="add-field-btn" onClick={this.saveNewField}>Save new field</button>
                         </div>
-                        
                         :
                         null
                     }        

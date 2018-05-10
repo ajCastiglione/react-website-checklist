@@ -33,12 +33,12 @@ class HomePage extends Component {
         return (
             <section className="homepg-content-container container cf">
                 
-                <article className="create-checklists col-xs-12 col-sm-6 col-lg-8">
+                <article className="create-checklists col-xs-12 col-sm-7 col-lg-8">
                     <h2>Generate new checklist</h2>
                     <Link className="create-btn" to="/create-checklist">Create Checklist</Link> 
                 </article>
 
-                <aside className="open-checklists col-xs-12 col-sm-6 col-lg-4">
+                <aside className="open-checklists col-xs-12 col-sm-5 col-lg-4">
                     <h3>All active checklists for {this.props.userName}</h3>
                     <ul>
                         {

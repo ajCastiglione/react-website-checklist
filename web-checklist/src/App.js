@@ -5,8 +5,9 @@ import './App.css';
 import firebase from './firebase';
 import LoginBar from './Login';
 import HomePage from './HomePage';
-import CreateChecklist from './CreateChecklist'; 
+import CreateChecklist from './Subpages/CreateChecklist'; 
 import SingleCheckList from './Subpages/SingleCheckList';
+import Footer from './Footer';
 
 class App extends Component {
 
@@ -103,6 +104,12 @@ class App extends Component {
             }
           </section>
         )}/>
+
+        <footer className="footer">
+          <Footer />
+        </footer>
+
+        <div className="after-footer"><p>Built by <a href="https://aj-castiglione.com" target="_blank" rel="noopener noreferrer">AJ Castiglione</a></p></div>
 
       </div>
     );

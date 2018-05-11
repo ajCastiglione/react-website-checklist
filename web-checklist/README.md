@@ -14,7 +14,6 @@ This project is in the process of being made while first learning react. It ties
 <li>Learn more about react and firebase, best way to tie them together</li>
 <li>Ability to remove checklists once completed</li>
 <li>Fix the styling and layout of the checklist single page</li>
-<li>Add ability to remove the checklist once it is completed</li>
 </ul>
 
 ### Status
@@ -23,4 +22,6 @@ This project is in the process of being made while first learning react. It ties
 <li>Got firebase working and im able to save unique checklists bound by userIDs</li>
 <li>This is a per person instance so it will be based purely on your google account login id</li>
 <li>Each checklists references a single template route that has the ability to update their fields invidually and write to the database for that list</li>
+<li>Can remove checklists</li>
+<li>Can add / remove fields per checklist</li>
 </ul>

@@ -8,6 +8,7 @@ import HomePage from './HomePage';
 import CreateChecklist from './Subpages/CreateChecklist'; 
 import SingleCheckList from './Subpages/SingleCheckList';
 import Footer from './Footer';
+import RemoveList from './Subpages/RemoveList';
 
 class App extends Component {
 
@@ -59,14 +60,15 @@ class App extends Component {
 
         <nav className="nav">
           <div className="inner-nav container">
-            <div className="nav-left col-xs-12 col-sm-6 col-lg-8">
+            <div className="nav-left col-xs-12 col-sm-7 col-lg-8">
               <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/create-checklist">New Checklist</Link></li>
+                <li><Link to="/create-checklist">Create List</Link></li>
+                <li><Link to="/remove-checklist">All Checklists</Link></li>
               </ul>
             </div>
 
-            <div className="nav-right col-xs-12 col-sm-6 col-lg-4">
+            <div className="nav-right col-xs-12 col-sm-5 col-lg-4">
               <LoginBar loggedInStatus={this.state.loggedIn}/>
             </div>
           </div>
@@ -103,6 +105,10 @@ class App extends Component {
             <p className="not-loggedin container">Please login via google to access this page!</p>
             }
           </section>
+        )}/>
+
+        <Route path="/remove-checklist" render={() => (
+          <RemoveList saveTarget={this.saveNewTarget} userName={this.state.username} userID={this.state.userId}/>
         )}/>
 
         <footer className="footer">

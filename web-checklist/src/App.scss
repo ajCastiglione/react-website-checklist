@@ -357,6 +357,33 @@ a {
   }
 }
 
+/* Remove list section */
+.remove-list-item {
+  position: relative;
+  border-bottom: 2px solid $dark;
+
+  a {
+    margin: 0;
+    padding: 1em 0;
+    color: $black;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  button {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    background-color: red;
+    color: $white;
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+  }
+}
+
 /* animation */
 
 @keyframes App-logo-spin {

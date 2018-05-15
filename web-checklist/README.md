@@ -11,9 +11,9 @@ This project is in the process of being made while first learning react. It ties
 
 ## TODO
 <ul>
-<li>Learn more about react and firebase, best way to tie them together</li>
-<li>Ability to remove checklists once completed</li>
 <li>Fix the styling and layout of the checklist single page</li>
+<li>Break nav into its own component</li>
+<li>Have the ability to select the type of checklist you need. EX: web dev, SEO, ppc etc..</li>
 </ul>
 
 ### Status

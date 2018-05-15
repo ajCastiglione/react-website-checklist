@@ -20,5 +20,6 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-sass": "^4.0.1"
-  }
+  },
+  "homepage": "https://website-checklist.firebaseapp.com/"
 }

@@ -60,6 +60,29 @@ a {
   justify-content: center;
 }
 
+/* Nav section */
+.nav-left {
+  position: fixed;
+  top: 0;
+  background-color: $dark;
+  border-bottom: 2px solid $reactBlue;
+  left: 0;
+  padding: 10px 0;
+  z-index: 9;
+
+  li {
+    display: none;
+  }
+
+  li.showMobileNav {
+    display: block;
+  }
+
+  #mobile-only {
+    display: inline-block;
+  }
+}
+
 /* Sign in */
 
 .nav {
@@ -73,6 +96,7 @@ a {
   }
   ul {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     list-style-type: none;
@@ -153,15 +177,19 @@ a {
 }
 
 .create-checklists {
+  margin: 1em 0;
   h2 {
     margin: 0;
     padding: 0 0 1em 0;
     text-transform: capitalize;
+    text-align: center;
   }
 }
 
 .create-btn {
-  display: inline-block;
+  display: block;
+  width: 70%;
+  margin: auto;
   background-color: $reactBlue;
   color: $white;
   border: 2px solid $reactBlue;
@@ -220,11 +248,15 @@ a {
 .open-checklists {
   text-align: center;
   border: 2px solid $gray;
+  margin: 1em 0;
   h3 {
     margin: 0;
     padding: 0.5em 0;
     margin-bottom: 0.5em;
     border-bottom: 1px solid $black;
+  }
+  ul {
+    text-align: left;
   }
 }
 
@@ -258,6 +290,8 @@ a {
     border-bottom: 2px solid $dark;
     position: relative;
     padding-top: 0.3em;
+    display: flex;
+    align-items: center;
     input {
       display: inline-block;
       margin: 0.5em;
@@ -270,7 +304,7 @@ a {
     }
     button {
       position: absolute;
-      right: 10px;
+      right: 1px;
       bottom: 0;
       top: 0;
       margin: auto;
@@ -328,6 +362,7 @@ a {
 .footer {
   margin-top: 2%;
   padding: 0.5em 0;
+  padding-bottom: 0;
   background-color: $reactBlue;
   color: $white;
   .social-media {
@@ -398,6 +433,31 @@ a {
 /* responsive section */
 
 @media screen and (min-width: 768px) {
+
+  .nav-left {
+    position: static;
+    background-color: transparent;
+
+    #mobile-only {
+      display: none;
+    }
+
+    li {
+      display: inline-block;
+    }
+  }
+
+  .create-checklists {
+    h2 {
+      text-align: left;
+    }
+  }
+
+  .create-btn {
+    display: inline-block;
+    width: auto;
+  }
+
   .single-checklist-page-container {
     .single-checklist-name,
     .single-checklist-type {

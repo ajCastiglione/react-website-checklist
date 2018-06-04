@@ -14,6 +14,7 @@ This project is in the process of being made while first learning react. It ties
 <li>Fix the styling and layout of the checklist single page</li>
 <li>Break nav into its own component</li>
 <li>Have the ability to select the type of checklist you need. EX: web dev, SEO, ppc etc..</li>
+<li>Add section for notes under the individual checklist (section for input field / textarea)</li>
 </ul>
 
 ### Status

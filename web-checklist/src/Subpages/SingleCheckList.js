@@ -26,8 +26,9 @@ class CheckListPage extends Component {
                 let clFields = vals[k].checklistFields;
                 tempArr.push({ name: clName, type: clType, fields: clFields });
             }
-            this.setState({ queryArr: tempArr });
-            sessionStorage.singleQuery = JSON.stringify(this.state.queryArr);
+            this.setState({ queryArr: tempArr }, () => {
+                sessionStorage.singleQuery = JSON.stringify(this.state.queryArr)
+            });
             this.setState({wait: true})
         });
     }

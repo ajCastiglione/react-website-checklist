@@ -379,9 +379,20 @@ a {
   border: 2px solid $reactBlue;
 }
 
+.checklist-single-note-stamp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+.time-stamp {
+  margin-bottom: 0;
+}
+
 .checklist-single-note-btns {
   text-align: right;
-  margin-top: 1em;
 }
 
 .notes-btn {

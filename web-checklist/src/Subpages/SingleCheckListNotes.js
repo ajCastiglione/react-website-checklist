@@ -5,12 +5,15 @@ export default class ChecklistNotes extends Component {
     
     state = {
         input: '',
+        editId: null,
+        editedText: '',
         list: this.props.list,
         uid: sessionStorage.uID,
         notes: [],
         fullList: [],
         warning: false,
         addNewNote: false,
+        showEditTextarea: false,
     }
 
     componentDidMount() {
@@ -26,7 +29,7 @@ export default class ChecklistNotes extends Component {
                 let clNotes = vals[k].checklistNotes;
                 tempArr.push({ name: clName, type: clType, fields: clFields, notes: clNotes });
             }
-            this.setState({ fullList: tempArr[0] }, () => this.setState({ notes: this.state.fullList.notes }));
+            this.setState({ fullList: tempArr[0] }, () => { if(this.state.fullList.notes) this.setState({ notes: this.state.fullList.notes }) });
         });
     }
 
@@ -41,9 +44,34 @@ export default class ChecklistNotes extends Component {
         this.setState({ input: value, warning: false });
     };
 
-    handleDelete = (e, index) => {
-        let db = firebase.database().ref(`users/${this.state.uid}/${this.state.list}`);
+    handleNewInput = (e) => {
+        let { value } = e.target;
+        this.setState({ editedText: value, warning: false });
+    };
+
+    toggleEdit = (e, idx) => {
+        this.setState({ showEditTextarea: !this.state.showEditTextarea, editId: idx });
+    };
+
+    submitEdit = (e) => {
         e.preventDefault();
+        let time = new Date().toLocaleTimeString();
+        let fullTimeStamp = `${month}/${date}/${year} at ${time}`;
+        let db = firebase.database().ref(`users/${this.state.uid}/${this.state.list}`);
+        let updatedArr = this.state.notes;
+        let note = this.state.notes[this.state.editId];
+        note.note = this.state.editedText;
+        note.date = fullTimeStamp;
+        updatedArr[this.state.editId] = note;
+
+        this.setState({ notes: updatedArr, showEditTextarea: false, editId: null }, () => {
+            db.update({ checklistNotes: this.state.notes });
+        });
+    }; //Updates time and text of selected note
+
+    handleDelete = (e, index) => {
+        e.preventDefault();
+        let db = firebase.database().ref(`users/${this.state.uid}/${this.state.list}`);
         let arr = this.state.notes;
         arr.splice(index, 1);
         this.setState({ notes: arr }, () => {
@@ -54,16 +82,27 @@ export default class ChecklistNotes extends Component {
     submitData = (e) => {
         //Error handling portion
         if(this.state.input === "") return this.setState({ warning: true });
+
         //Updating the db with the new entry
         let arr = this.state.notes;
-        arr.push(this.state.input);
+        let time = new Date().toLocaleTimeString();
+        let fullTimeStamp = `${month}/${date}/${year} at ${time}`;
+
+        let data = {
+            note: this.state.input,
+            date: fullTimeStamp
+        };
+
+        arr.push(data);
         this.setState({ notes: arr }, () => {
             let db = firebase.database().ref(`users/${this.state.uid}/${this.state.list}`);
             db.update({ 'checklistNotes': this.state.notes });
         });
+
         //Clearing the input field and state after successful update
         document.querySelector('#comment').value = "";
         this.setState({ input: '', addNewNote: false });
+
     }; //Submits new note 
 
     render() {
@@ -84,16 +123,30 @@ export default class ChecklistNotes extends Component {
                 
 
                 {
-                    this.state.notes.length !== 0 ?
+                    this.state.notes && this.state.notes.length !== 0  ?
                     <div className="checklist-notes">
+                    {
+                        this.state.showEditTextarea ? 
+                        <div className="form-group">
+                            {this.state.warning ? <div className="alert alert-warning"><h3>Input cannot be blank!</h3></div> : null }
+                            <input type="text" className="form-control" rows="5" id="edit-comment" onChange={this.handleNewInput} />
+                            <button className="add-field-btn" onClick={this.submitEdit}>Save note</button>
+                        </div>
+                        :
+                        null
+                    }
                         {
                             this.state.notes.map((el, idx) => (
                                 <div key={idx} className="checklist-note-single">
-                                    <p className="checklist-single-note-content">{el}</p>
-                                    <div className="checklist-single-note-btns">
-                                        <button onClick={(e) => this.handleEdit(e,idx)} className="notes-btn">Edit</button>
-                                        <button onClick={(e) => this.handleDelete(e,idx)} className="notes-btn">Remove</button>
+                                    <p className="checklist-single-note-content">{el.note}</p>
+                                    <div className="checklist-single-note-stamp">
+                                        <p className="time-stamp">{el.date}</p>
+                                        <div className="checklist-single-note-btns">
+                                            <button onClick={(e) => this.toggleEdit(e,idx)} className="notes-btn">Edit</button>
+                                            <button onClick={(e) => this.handleDelete(e,idx)} className="notes-btn">Remove</button>
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             ))
                         }
@@ -107,4 +160,6 @@ export default class ChecklistNotes extends Component {
     }
 }
 
-let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let date = new Date().getUTCDate();
+let month = new Date().getUTCMonth() + 1;
+let year = new Date().getUTCFullYear();

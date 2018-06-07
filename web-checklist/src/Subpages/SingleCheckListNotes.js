@@ -7,6 +7,7 @@ export default class ChecklistNotes extends Component {
         input: '',
         editId: null,
         editedText: '',
+        currentText: '',
         list: this.props.list,
         uid: sessionStorage.uID,
         notes: [],
@@ -46,14 +47,23 @@ export default class ChecklistNotes extends Component {
 
     handleNewInput = (e) => {
         let { value } = e.target;
+        value = value.charAt(0).toUpperCase() + value.slice(1);
         this.setState({ editedText: value, warning: false });
     };
 
     toggleEdit = (e, idx) => {
-        this.setState({ showEditTextarea: !this.state.showEditTextarea, editId: idx });
+        e.preventDefault();
+        let txt = this.state.notes[idx].note;
+        this.setState({ showEditTextarea: !this.state.showEditTextarea, editId: idx, currentText: txt }, () => {
+            if(this.state.showEditTextarea === false) {
+                this.setState({ editId: null })
+            }
+        });
     };
 
     submitEdit = (e) => {
+        if(this.state.editedText === "") return this.setState({ warning: true });
+
         e.preventDefault();
         let time = new Date().toLocaleTimeString();
         let fullTimeStamp = `${month}/${date}/${year} at ${time}`;
@@ -126,34 +136,36 @@ export default class ChecklistNotes extends Component {
                     this.state.notes && this.state.notes.length !== 0  ?
                     <div className="checklist-notes">
                     {
-                        this.state.showEditTextarea ? 
-                        <div className="form-group">
-                            {this.state.warning ? <div className="alert alert-warning"><h3>Input cannot be blank!</h3></div> : null }
-                            <input type="text" className="form-control" rows="5" id="edit-comment" onChange={this.handleNewInput} />
-                            <button className="add-field-btn" onClick={this.submitEdit}>Save note</button>
-                        </div>
-                        :
-                        null
-                    }
-                        {
-                            this.state.notes.map((el, idx) => (
-                                <div key={idx} className="checklist-note-single">
-                                    <p className="checklist-single-note-content">{el.note}</p>
-                                    <div className="checklist-single-note-stamp">
-                                        <p className="time-stamp">{el.date}</p>
-                                        <div className="checklist-single-note-btns">
-                                            <button onClick={(e) => this.toggleEdit(e,idx)} className="notes-btn">Edit</button>
-                                            <button onClick={(e) => this.handleDelete(e,idx)} className="notes-btn">Remove</button>
-                                        </div>
+                        this.state.notes.map((el, idx) => (
+                            <div key={idx} className={ this.state.editId === idx ? "checklist-note-single active-note" : "checklist-note-single" }>
+                                <p className="checklist-single-note-content">{el.note}</p>
+
+                                {
+                                    this.state.showEditTextarea ? 
+                                    <div className="edit-group">
+                                        {this.state.warning ? <div className="alert alert-warning"><h3>Input cannot be blank!</h3></div> : null }
+                                        <input type="text" className="form-control" id="edit-comment" onChange={this.handleNewInput} defaultValue={this.state.currentText} />
+                                        <button className="add-field-btn" onClick={this.submitEdit}>Save note: {this.state.editId}</button>
                                     </div>
-                                    
+                                    :
+                                    null
+                                }
+
+                                <div className="checklist-single-note-stamp">
+                                    <p className="time-stamp">{el.date}</p>
+                                    <div className="checklist-single-note-btns">
+                                        <button onClick={(e) => this.toggleEdit(e,idx)} className="notes-btn">{ this.state.showEditTextarea ? 'Close editor' : 'Edit' }</button>
+                                        <button onClick={(e) => this.handleDelete(e,idx)} className="notes-btn">Remove</button>
+                                    </div>
                                 </div>
-                            ))
-                        }
-                    </div>
-                    :
-                    null
-                }
+                                    
+                            </div>
+                        ))
+                    }
+                </div>
+                :
+                null
+            }
 
             </section>
         )

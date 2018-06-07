@@ -25,4 +25,5 @@ This project is in the process of being made while first learning react. It ties
 <li>Each checklists references a single template route that has the ability to update their fields invidually and write to the database for that list</li>
 <li>Can remove checklists</li>
 <li>Can add / remove fields per checklist</li>
+<li>Ability to use default fields or create custom fields</li>
 </ul>

@@ -16,8 +16,8 @@ class App extends Component {
     username: '',
     userId: sessionStorage.uID || '',
     loggedIn: 'false',
-    savedPg: sessionStorage.curPage || '',
-    savedType: sessionStorage.curType || '',
+    savedPg: sessionStorage.curPage ? sessionStorage.curPage : '',
+    savedType: sessionStorage.curType ? sessionStorage.curType : '',
     navShown: false
   }
 
@@ -25,8 +25,7 @@ class App extends Component {
     super();
     firebase.auth().onAuthStateChanged(((usr) => {
       if(usr) {
-          this.setState({ username: usr.displayName, userId: usr.uid, loggedIn: 'true' });
-          sessionStorage.uID = this.state.userId;
+          this.setState({ username: usr.displayName, userId: usr.uid, loggedIn: 'true' }, () => {sessionStorage.uID = this.state.userId;});
         } else {
           this.setState({loggedIn: 'false'})
         }

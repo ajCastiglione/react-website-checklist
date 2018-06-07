@@ -15,6 +15,7 @@ This project is in the process of being made while first learning react. It ties
 <li>Break nav into its own component</li>
 <li>Have the ability to select the type of checklist you need. EX: web dev, SEO, ppc etc..</li>
 <li><del>Add section for notes under the individual checklist (section for input field / textarea)</del></li>
+<li><del>Made the edit btn functional. Have the ability to change the text, keep its position, and update the time stamp when updated.</del></li>
 </ul>
 
 ### Status
@@ -27,4 +28,5 @@ This project is in the process of being made while first learning react. It ties
 <li>Can add / remove fields per checklist</li>
 <li>Ability to use default fields or create custom fields</li>
 <li>Added notes section per checklist. Fixed error causing program to fail if checklistNotes didnt exist in the database previously</li>
+<li>Added edit functionality in full.</li>
 </ul>

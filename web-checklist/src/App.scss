@@ -203,7 +203,8 @@ a {
 
 /* checklist creation form */
 
-.alert-success, .alert-warning {
+.alert-success,
+.alert-warning {
   margin-top: 1em;
   h3 {
     text-transform: capitalize;
@@ -363,6 +364,38 @@ a {
 .save-new-field-container {
   .add-field-btn {
     margin-left: 0;
+  }
+}
+
+/* single checklist notes section */
+
+.form-group {
+  margin-top: 1em;
+}
+
+.checklist-note-single {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border: 2px solid $reactBlue;
+}
+
+.checklist-single-note-btns {
+  text-align: right;
+  margin-top: 1em;
+}
+
+.notes-btn {
+  background-color: $black;
+  color: $reactBlue;
+  padding: 5px 12px;
+  border: 2px solid $black;
+  border-radius: 10px;
+  margin: 0 5px;
+  font-size: 12px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: $reactBlue;
+    color: $black;
   }
 }
 

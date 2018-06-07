@@ -72,15 +72,6 @@ class CheckListPage extends Component {
         this.setState({ newField: e.target.value })
     };
 
-    handleNewMessage = (e) => {
-        let { value } = e.target;
-        this.setState({ newMessage: value });
-    };
-
-    saveNewMessage = (e) => {
-        console.log('saved message will go here, need to figure out best place to put this into existing lists');
-    }
-
     handleKeyPress = (e) => {
         if(e.key === 'Enter') e.preventDefault();
     };
@@ -100,7 +91,7 @@ class CheckListPage extends Component {
 
     submitData = (e) => {
         let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
-        db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType }); 
+        db.update({ checklistFields: this.state.queryArr[0].fields }); 
     };
 
     render() {
@@ -148,7 +139,7 @@ class CheckListPage extends Component {
                 </form>
 
                 <article className="notes-container">
-                    <ChecklistNotes list={this.state.targetChecklist} handleInput={this.handleNewMessage} save={this.saveNewMessage} />
+                    <ChecklistNotes list={this.state.targetChecklist} />
                 </article>
 
             </section>

@@ -203,6 +203,16 @@ a {
 
 /* checklist creation form */
 
+.alert-success, .alert-warning {
+  margin-top: 1em;
+  h3 {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+  }
+}
+
 .creation-title {
   padding: 0.5em;
   margin: 0;

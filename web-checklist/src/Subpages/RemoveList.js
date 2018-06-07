@@ -60,7 +60,7 @@ class RemoveList extends Component {
                                 </div>
                             ))
                             : 
-                            <li>No checklists to view, must be all caught up!</li>
+                            <li>No checklists to view! or its loading...</li>
                         }
                     </ul>
                 </article>

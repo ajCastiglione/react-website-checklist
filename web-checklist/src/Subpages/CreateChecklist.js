@@ -17,7 +17,7 @@ class CreateChecklist extends Component {
     handleNameChange = (e) => {
         let title = e.target.value;
         title = title.charAt(0).toUpperCase() + title.slice(1);
-        this.setState({ checkListName: title, checkListTitle: title });
+        this.setState({ checkListName: title, checkListTitle: title, success: false });
     };
 
     handleSubChange = (e) => {
@@ -61,7 +61,6 @@ class CreateChecklist extends Component {
         };
         let tempArr = this.state.checkListFields;
         tempArr.push(temp);
-        console.log(tempArr)
         this.setState({ checkListFields: tempArr });
         document.querySelector('#newFieldText').value = "";
     }
@@ -73,6 +72,8 @@ class CreateChecklist extends Component {
         }
         let name = this.state.checkListName, type = this.state.checkListType, title = this.state.checkListTitle, fields = this.state.checkListFields;
         this.props.makeList(name, type, title, fields);
+        this.setState({ success: true });
+        window.scrollTo(0, 0);
     };
 
     render() {
@@ -107,7 +108,7 @@ class CreateChecklist extends Component {
                                 <div className="checklist-custom-fields">
                                   <div className="save-new-field-container">
                                         <label>Enter the name of the item</label>
-                                        {this.state.warning ? <div className="alert alert-warning">Input cannot be blank!</div> : null }
+                                        {this.state.warning ? <div className="alert alert-warning"><h3>Input cannot be blank!</h3></div> : null }
                                         <input id="newFieldText" type="text" className="form-control" onChange={this.handleFieldText} />
                                         <button className="add-field-btn" onClick={this.saveNewField}>Save new field</button>
                                     </div>

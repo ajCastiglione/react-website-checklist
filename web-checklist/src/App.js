@@ -39,7 +39,8 @@ class App extends Component {
       {
         checklistName: ckName,
         checklistFor: ckType,
-        checklistFields: fields
+        checklistFields: fields,
+        checklistNotes: ['']
       }
     });
   }

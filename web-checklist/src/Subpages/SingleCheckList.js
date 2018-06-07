@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import firebase from '../firebase';
+import ChecklistNotes from './SingleCheckListNotes';
 import { Link } from 'react-router-dom';
 
 class CheckListPage extends Component {
@@ -11,7 +12,8 @@ class CheckListPage extends Component {
         queryArr: [] || JSON.parse(sessionStorage.singleQuery),
         wait: false,
         visible: false,
-        newField: ""
+        newField: '',
+        newMessage: '',
     }
 
     componentDidMount() {
@@ -69,6 +71,16 @@ class CheckListPage extends Component {
         e.preventDefault();
         this.setState({ newField: e.target.value })
     };
+
+    handleNewMessage = (e) => {
+        let { value } = e.target;
+        this.setState({ newMessage: value });
+    };
+
+    saveNewMessage = (e) => {
+        console.log('saved message will go here, need to figure out best place to put this into existing lists');
+    }
+
     handleKeyPress = (e) => {
         if(e.key === 'Enter') e.preventDefault();
     };
@@ -134,6 +146,11 @@ class CheckListPage extends Component {
                         null
                     }        
                 </form>
+
+                <article className="notes-container">
+                    <ChecklistNotes list={this.state.targetChecklist} handleInput={this.handleNewMessage} save={this.saveNewMessage} />
+                </article>
+
             </section>
         )
     }

@@ -11,10 +11,10 @@ This project is in the process of being made while first learning react. It ties
 
 ## TODO
 <ul>
-<li>Fix the styling and layout of the checklist single page</li>
+<li><del>Fix the styling and layout of the checklist single page</del></li>
 <li>Break nav into its own component</li>
 <li>Have the ability to select the type of checklist you need. EX: web dev, SEO, ppc etc..</li>
-<li>Add section for notes under the individual checklist (section for input field / textarea)</li>
+<li><del>Add section for notes under the individual checklist (section for input field / textarea)</del></li>
 </ul>
 
 ### Status
@@ -26,4 +26,5 @@ This project is in the process of being made while first learning react. It ties
 <li>Can remove checklists</li>
 <li>Can add / remove fields per checklist</li>
 <li>Ability to use default fields or create custom fields</li>
+<li>Added notes section per checklist. Fixed error causing program to fail if checklistNotes didnt exist in the database previously</li>
 </ul>

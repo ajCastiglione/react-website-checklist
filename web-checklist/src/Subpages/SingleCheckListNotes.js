@@ -30,7 +30,22 @@ export default class ChecklistNotes extends Component {
                 let clNotes = vals[k].checklistNotes;
                 tempArr.push({ name: clName, type: clType, fields: clFields, notes: clNotes });
             }
-            this.setState({ fullList: tempArr[0] }, () => { if(this.state.fullList.notes) this.setState({ notes: this.state.fullList.notes }) });
+            this.setState({ fullList: tempArr[0] }, () => {
+                if(this.state.fullList.notes) this.setState({ notes: this.state.fullList.notes }, () => {
+                    let arr = this.state.notes;
+                    arr.sort((a,b) => {
+                        console.log(b.date.split('/')[0], a.date.split('/')[0])
+                        if(b.date.split('/')[0] === a.date.split('/')[0]) {
+                            return b.date.split('/')[1] - a.date.split('/')[1];
+                        } else if (b.date.split('/')[0] < a.date.split('/')[0]) {
+                            return b.date.split('/')[0] - a.date.split('/')[0];
+                        };
+                        return null;
+                    });
+                    console.log(arr)
+                    this.setState({ notes: arr });
+                });
+             });
         });
     }
 

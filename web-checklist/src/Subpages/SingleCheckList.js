@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import firebase from '../firebase';
+import ChecklistNotes from './SingleCheckListNotes';
 import { Link } from 'react-router-dom';
 
 class CheckListPage extends Component {
@@ -11,7 +12,8 @@ class CheckListPage extends Component {
         queryArr: [] || JSON.parse(sessionStorage.singleQuery),
         wait: false,
         visible: false,
-        newField: ""
+        newField: '',
+        newMessage: '',
     }
 
     componentDidMount() {
@@ -26,8 +28,9 @@ class CheckListPage extends Component {
                 let clFields = vals[k].checklistFields;
                 tempArr.push({ name: clName, type: clType, fields: clFields });
             }
-            this.setState({ queryArr: tempArr });
-            sessionStorage.singleQuery = JSON.stringify(this.state.queryArr);
+            this.setState({ queryArr: tempArr }, () => {
+                sessionStorage.singleQuery = JSON.stringify(this.state.queryArr)
+            });
             this.setState({wait: true})
         });
     }
@@ -68,6 +71,7 @@ class CheckListPage extends Component {
         e.preventDefault();
         this.setState({ newField: e.target.value })
     };
+
     handleKeyPress = (e) => {
         if(e.key === 'Enter') e.preventDefault();
     };
@@ -87,7 +91,7 @@ class CheckListPage extends Component {
 
     submitData = (e) => {
         let db = firebase.database().ref(`users/${this.state.uid}/${this.state.targetChecklist}`);
-        db.update({ checklistFields: this.state.queryArr[0].fields, checklistName: this.state.targetChecklist, checklistFor: this.state.listType }); 
+        db.update({ checklistFields: this.state.queryArr[0].fields }); 
     };
 
     render() {
@@ -133,6 +137,11 @@ class CheckListPage extends Component {
                         null
                     }        
                 </form>
+
+                <article className="notes-container">
+                    <ChecklistNotes list={this.state.targetChecklist} />
+                </article>
+
             </section>
         )
     }

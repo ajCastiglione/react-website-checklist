@@ -16,16 +16,16 @@ class App extends Component {
     username: '',
     userId: sessionStorage.uID || '',
     loggedIn: 'false',
-    savedPg: sessionStorage.curPage || '',
-    savedType: sessionStorage.curType || ''
+    savedPg: sessionStorage.curPage ? sessionStorage.curPage : '',
+    savedType: sessionStorage.curType ? sessionStorage.curType : '',
+    navShown: false
   }
 
   constructor() {
     super();
     firebase.auth().onAuthStateChanged(((usr) => {
       if(usr) {
-          this.setState({ username: usr.displayName, userId: usr.uid, loggedIn: 'true' });
-          sessionStorage.uID = this.state.userId;
+          this.setState({ username: usr.displayName, userId: usr.uid, loggedIn: 'true' }, () => {sessionStorage.uID = this.state.userId;});
         } else {
           this.setState({loggedIn: 'false'})
         }
@@ -39,7 +39,8 @@ class App extends Component {
       {
         checklistName: ckName,
         checklistFor: ckType,
-        checklistFields: fields
+        checklistFields: fields,
+        checklistNotes: ['']
       }
     });
   }
@@ -50,21 +51,27 @@ class App extends Component {
     sessionStorage.curType = checkType;
   }
 
+  handleNavClick = (e) => {
+    e.preventDefault();
+    this.setState({ navShown: !this.state.navShown });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">React Checklist</h1>
         </header>
 
         <nav className="nav">
           <div className="inner-nav container">
             <div className="nav-left col-xs-12 col-sm-7 col-lg-8">
               <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/create-checklist">Create List</Link></li>
-                <li><Link to="/remove-checklist">All Checklists</Link></li>
+                <li id='mobile-only'><a href="/null" onClick={this.handleNavClick}><i className="fas fa-bars"></i></a></li>
+                <li className={this.state.navShown === false ? '' : 'showMobileNav'}><Link to="/">Home</Link></li>
+                <li className={this.state.navShown === false ? '' : 'showMobileNav'}><Link to="/create-checklist">Create List</Link></li>
+                <li className={this.state.navShown === false ? '' : 'showMobileNav'}><Link to="/remove-checklist">All Checklists</Link></li>
               </ul>
             </div>
 
@@ -114,8 +121,6 @@ class App extends Component {
         <footer className="footer">
           <Footer />
         </footer>
-
-        <div className="after-footer"><p>Built by <a href="https://aj-castiglione.com" target="_blank" rel="noopener noreferrer">AJ Castiglione</a></p></div>
 
       </div>
     );

@@ -50,21 +50,16 @@ class LoginBar extends Component {
         return (
             <div className="login-form">
             {
-                this.state.loggedIn === 'false' &&
+                this.state.loggedIn === 'false' ?
                 <div className="sign-in">
                     <a className="sign-in-btn" onClick={this.loginWindow}>Login with Google</a>
                 </div>
-            }
-            {
-                this.state.loggedIn === 'true' &&
+                :            
                 <div className="sign-out">
                     <img src={this.state.userImg} alt="User profile pic"/> 
                     <a className="sign-out-btn" onClick={this.logOut}>{this.state.userName} - Sign Out</a>
                 </div>
             }
-                {/*<div className="fuck">
-                    <a onClick={this.testIt.bind(this)}>Click here to test something</a>
-                </div>*/}
             </div>
         )
     }

@@ -34,8 +34,9 @@ a {
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  min-height: 150px;
   padding: 20px;
+  margin-top: 30px;
   color: $white;
   text-align: center;
 }
@@ -60,6 +61,27 @@ a {
   justify-content: center;
 }
 
+/* Nav section */
+
+.nav-left {
+  position: fixed;
+  top: 0;
+  background-color: $dark;
+  border-bottom: 2px solid $reactBlue;
+  left: 0;
+  padding: 10px 0;
+  z-index: 9;
+  li {
+    display: none;
+  }
+  li.showMobileNav {
+    display: block;
+  }
+  #mobile-only {
+    display: inline-block;
+  }
+}
+
 /* Sign in */
 
 .nav {
@@ -73,6 +95,7 @@ a {
   }
   ul {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     list-style-type: none;
@@ -153,15 +176,19 @@ a {
 }
 
 .create-checklists {
+  margin: 1em 0;
   h2 {
     margin: 0;
     padding: 0 0 1em 0;
     text-transform: capitalize;
+    text-align: center;
   }
 }
 
 .create-btn {
-  display: inline-block;
+  display: block;
+  width: 70%;
+  margin: auto;
   background-color: $reactBlue;
   color: $white;
   border: 2px solid $reactBlue;
@@ -175,6 +202,17 @@ a {
 }
 
 /* checklist creation form */
+
+.alert-success,
+.alert-warning {
+  margin-top: 1em;
+  h3 {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+  }
+}
 
 .creation-title {
   padding: 0.5em;
@@ -220,11 +258,15 @@ a {
 .open-checklists {
   text-align: center;
   border: 2px solid $gray;
+  margin: 1em 0;
   h3 {
     margin: 0;
     padding: 0.5em 0;
     margin-bottom: 0.5em;
     border-bottom: 1px solid $black;
+  }
+  ul {
+    text-align: left;
   }
 }
 
@@ -258,6 +300,8 @@ a {
     border-bottom: 2px solid $dark;
     position: relative;
     padding-top: 0.3em;
+    display: flex;
+    align-items: center;
     input {
       display: inline-block;
       margin: 0.5em;
@@ -270,7 +314,7 @@ a {
     }
     button {
       position: absolute;
-      right: 10px;
+      right: 1px;
       bottom: 0;
       top: 0;
       margin: auto;
@@ -324,11 +368,91 @@ a {
   }
 }
 
+/* single checklist notes section */
+
+.checklist-notes-section {
+  max-height: 1500px;
+  overflow-y: auto;
+}
+
+.form-group {
+  margin-top: 1em;
+}
+
+.active-note {
+  .checklist-single-note-content {
+    display: none;
+  }
+  .edit-group {
+    display: flex;
+    margin: 1em 0;
+  }
+}
+
+.edit-group {
+  display: none;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0.5em;
+  margin-top: 1em;
+  input {
+    width: 70%;
+  }
+  .add-field-btn {
+    margin: 0;
+    margin-left: 5px;
+  }
+}
+
+.checklist-note-single {
+  margin: 0.5em 0;
+  border: 2px solid $reactBlue;
+}
+
+.checklist-single-note-content {
+  padding: 1em 0.5em 0.5em 0.5em;
+}
+
+.checklist-single-note-stamp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1em;
+  padding: 0.5em;
+  border-top: 2px solid $black;
+  background-color: rgba(80, 80, 80, 0.2);
+}
+
+.time-stamp {
+  margin-bottom: 0;
+}
+
+.checklist-single-note-btns {
+  text-align: right;
+}
+
+.notes-btn {
+  background-color: $black;
+  color: $reactBlue;
+  padding: 5px 12px;
+  border: 2px solid $black;
+  border-radius: 10px;
+  margin: 0 5px;
+  font-size: 12px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: $reactBlue;
+    color: $black;
+  }
+}
+
 /* Footer Section */
 
 .footer {
   margin-top: 2%;
   padding: 0.5em 0;
+  padding-bottom: 0;
   background-color: $reactBlue;
   color: $white;
   .social-media {
@@ -359,10 +483,10 @@ a {
 }
 
 /* Remove list section */
+
 .remove-list-item {
   position: relative;
   border-bottom: 2px solid $dark;
-
   a {
     margin: 0;
     padding: 1em 0;
@@ -370,7 +494,6 @@ a {
     text-decoration: none;
     display: inline-block;
   }
-
   button {
     position: absolute;
     right: 10px;
@@ -400,6 +523,28 @@ a {
 /* responsive section */
 
 @media screen and (min-width: 768px) {
+  .App-header {
+    margin-top: 0;
+  }
+  .nav-left {
+    position: static;
+    background-color: transparent;
+    #mobile-only {
+      display: none;
+    }
+    li {
+      display: inline-block;
+    }
+  }
+  .create-checklists {
+    h2 {
+      text-align: left;
+    }
+  }
+  .create-btn {
+    display: inline-block;
+    width: auto;
+  }
   .single-checklist-page-container {
     .single-checklist-name,
     .single-checklist-type {

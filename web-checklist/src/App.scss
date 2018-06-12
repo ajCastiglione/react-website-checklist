@@ -275,6 +275,7 @@ a {
       top: 0;
       margin: auto;
       background-color: red;
+      border: 2px solid red;
       color: $white;
       width: 25px;
       height: 25px;
@@ -381,6 +382,7 @@ a {
     width: 25px;
     height: 25px;
     border-radius: 100px;
+    border: 2px solid red;
   }
 }
 

@@ -34,15 +34,22 @@ export default class ChecklistNotes extends Component {
                 if(this.state.fullList.notes) this.setState({ notes: this.state.fullList.notes }, () => {
                     let arr = this.state.notes;
                     arr.sort((a,b) => {
-                        console.log(b.date.split('/')[0], a.date.split('/')[0])
-                        if(b.date.split('/')[0] === a.date.split('/')[0]) {
-                            return b.date.split('/')[1] - a.date.split('/')[1];
-                        } else if (b.date.split('/')[0] < a.date.split('/')[0]) {
-                            return b.date.split('/')[0] - a.date.split('/')[0];
+                        let bMonth = b.date.split('/')[0], bDay = b.date.split('/')[1];
+                        let aMonth = a.date.split('/')[0], aDay = a.date.split('/')[1];
+                        let bTime = b.date.split(' ')[2] + " " + b.date.split(' ')[3];
+                        let aTime = a.date.split(' ')[2] + " " + a.date.split(' ')[3];
+
+                        if(bMonth === aMonth) {
+                            if(bDay === aDay) {
+                                return new Date('1970/01/01 ' + bTime) - new Date('1970/01/01 ' + aTime);
+                            } else {
+                                return bDay - aDay;
+                            }
+                        } else if (bMonth < aMonth) {
+                            return bMonth - aMonth;
                         };
                         return null;
                     });
-                    console.log(arr)
                     this.setState({ notes: arr });
                 });
              });

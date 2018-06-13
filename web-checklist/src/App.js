@@ -40,7 +40,7 @@ class App extends Component {
         checklistName: ckName,
         checklistFor: ckType,
         checklistFields: fields,
-        checklistNotes: ['']
+        checklistNotes: []
       }
     });
   }

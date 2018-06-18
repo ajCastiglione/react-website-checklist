@@ -19,6 +19,7 @@ This project is in the process of being made while first learning react. It ties
 <li><del>Add section for notes under the individual checklist (section for input field / textarea)</del></li>
 <li><del>Made the edit btn functional. Have the ability to change the text, keep its position, and update the time stamp when updated.</del></li>
 <li>Fix error where notice of blank input appears next to edit box</li>
+<li>Fix the url for single checklists</li>
 </ul>
 
 ### Status

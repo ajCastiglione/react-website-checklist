@@ -193,6 +193,11 @@ export default class ChecklistNotes extends Component {
 
         {this.state.notes && this.state.notes.length !== 0 ? (
           <div className="checklist-notes">
+            {this.state.warning ? (
+              <div className="alert alert-warning">
+                <h3>Input cannot be blank!</h3>
+              </div>
+            ) : null}
             {this.state.notes.map((el, idx) => (
               <div
                 key={idx}
@@ -206,15 +211,11 @@ export default class ChecklistNotes extends Component {
 
                 {this.state.showEditTextarea ? (
                   <div className="edit-group">
-                    {this.state.warning ? (
-                      <div className="alert alert-warning">
-                        <h3>Input cannot be blank!</h3>
-                      </div>
-                    ) : null}
-                    <input
+                    <textarea
                       type="text"
                       className="form-control"
                       id="edit-comment"
+                      rows="5"
                       onChange={this.handleNewInput}
                       defaultValue={this.state.currentText}
                     />

@@ -47,7 +47,7 @@ export default class ChecklistNotes extends Component {
                   aDay = a.date.split("/")[1];
                 let bTime = b.date.split(" ")[2] + " " + b.date.split(" ")[3];
                 let aTime = a.date.split(" ")[2] + " " + a.date.split(" ")[3];
-
+                console.log(`${aMonth} : ${bMonth}`);
                 if (bMonth === aMonth) {
                   if (bDay === aDay) {
                     return (
@@ -59,8 +59,9 @@ export default class ChecklistNotes extends Component {
                   }
                 } else if (aMonth < bMonth) {
                   return bMonth - aMonth;
+                } else {
+                  return bMonth - aMonth;
                 }
-                return null;
               });
               this.setState({ notes: arr });
             });
@@ -249,6 +250,6 @@ export default class ChecklistNotes extends Component {
   }
 }
 
-let date = new Date().getUTCDate();
-let month = new Date().getUTCMonth() + 1;
-let year = new Date().getUTCFullYear();
+let date = new Date().getDate();
+let month = new Date().getMonth() + 1;
+let year = new Date().getFullYear();
